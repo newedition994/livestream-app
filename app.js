@@ -21,4 +21,7 @@ app.configure(express.rest());
 // Register services
 app.use("/ideas", new IdeaService());
 
+// new connection to connect to stream channel
 app.on("connection", conn => app.channel("stream").join(conn));
+// Publish events to stream
+app.publish(data => app.channel("stream"));
