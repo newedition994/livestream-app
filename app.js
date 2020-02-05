@@ -16,3 +16,9 @@ const app = express(feathers());
 app.use(express.json());
 // Config Socket.io realtime APIs
 app.configure(socketio());
+// Enable REST services
+app.configure(express.rest());
+// Register services
+app.use("/ideas", new IdeaService());
+
+app.on("connection", conn => app.channel("stream").join(conn));
